@@ -38,7 +38,7 @@ export default function ColorConfigForm() {
             onChange={(e) => setChromaStep(parseFloat(e.target.value))}
           />
           <span className="text-xs text-muted-foreground leading-4 inline-block mt-1">
-            Increases the chroma by a specified amount
+            Reduces the chroma by a specified amount
           </span>
         </div>
       </fieldset>
