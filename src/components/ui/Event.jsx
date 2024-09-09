@@ -15,7 +15,7 @@ export default function Event({ data }) {
   } = adjustColor(activeColor, adjustments);
   const foregroundColor =
     mode === "dark" && lightness > 0.65
-      ? ForegroundDark
+      ? ForegroundLight
       : mode === "light" && lightness > 0.2
         ? ForegroundLight
         : ForegroundDark;
