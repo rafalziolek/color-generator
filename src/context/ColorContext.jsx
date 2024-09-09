@@ -7,13 +7,13 @@ const ColorContext = createContext();
 export const ColorProvider = ({ children }) => {
   const [mode, setMode] = useState("dark");
   const [colors, setColors] = useState([
-    "oklch(0.58 0.15 30)",
-    "oklch(0.58 0.15 180)",
-    "oklch(0.58 0.15 240)",
-    "oklch(0.58 0.15 300)",
-    "oklch(0.58 0.15 420)",
-    "oklch(0.58 0.15 540)",
-    "oklch(0.58 0.15 660)",
+    "oklch(0.57 0.13 30)",
+    "oklch(0.57 0.13 180)",
+    "oklch(0.57 0.13 240)",
+    "oklch(0.57 0.13 300)",
+    "oklch(0.57 0.13 420)",
+    "oklch(0.57 0.13 540)",
+    "oklch(0.57 0.13 660)",
   ]);
   const [activeColor, setActiveColor] = useState(colors[0]);
   const [customColors, setCustomColors] = useState([]);
@@ -29,8 +29,8 @@ export const ColorProvider = ({ children }) => {
       c: 0.0,
     },
     ForegroundLight: {
-      l: -0.35,
-      c: 0.05,
+      l: -0.44,
+      c: 0.15,
     },
     ForegroundDark: {
       l: 0.6,
