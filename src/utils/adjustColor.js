@@ -1,33 +1,30 @@
-function adjustColor(activeColor, lightnessStep, chromaStep) {
-  const parseColor = (color) => {
-    const lightnessMatch = color.match(/oklch\(([^ ]+)/);
-    const chromaMatch = color.match(/oklch\([^ ]+ ([^ ]+)/);
-    const hueMatch = color.match(/oklch\([^ ]+ [^ ]+ ([^ ]+)\)/);
+import { converter } from "culori";
 
-    return {
-      lightness: lightnessMatch ? parseFloat(lightnessMatch[1]) : 0,
-      chroma: chromaMatch ? parseFloat(chromaMatch[1]) : 0,
-      hue: hueMatch ? hueMatch[1] : "0",
-    };
-  };
+function adjustColor(activeColor, adjustments) {
+  const oklch = converter("oklch");
+  const { l: lightness, c: chroma, h: hue } = oklch(activeColor);
 
-  const { lightness, chroma, hue } = parseColor(activeColor);
+  let adjustedLightness = lightness;
+  let adjustedChroma = chroma;
 
-  const adjustedLightnessForLighter = Math.min(
-    Math.max(lightness + lightnessStep, 0),
-    1,
-  );
-  const adjustedLightnessForDarker = Math.min(
-    Math.max(lightness - lightnessStep, 0),
-    1,
-  );
-  const adjustedChroma = Math.min(Math.max(chroma - chromaStep, 0), 1);
+  // Adjust lightness more significantly based on hue
+  if (hue >= 100 && hue < 300) {
+    // Greens
+    adjustedLightness -= 0.03; // Heavier lightness adjustment for green
+  } else if (hue < 100 || hue > 300) {
+    // Reds
+    adjustedChroma -= 0.01; // Reduce chroma for reds (optional)
+  }
 
-  return {
-    lighterColor: `oklch(${adjustedLightnessForLighter} ${adjustedChroma} ${hue})`,
-    darkerColor: `oklch(${adjustedLightnessForDarker} ${adjustedChroma} ${hue})`,
+  const adjustedColors = {
+    ForegroundLight: `oklch(${Math.min(Math.max(adjustedLightness + adjustments.ForegroundLight.l, 0), 1)} ${Math.min(Math.max(adjustedChroma + adjustments.ForegroundLight.c, 0), 1)} ${hue})`,
+    ForegroundDark: `oklch(${Math.min(Math.max(adjustedLightness + adjustments.ForegroundDark.l, 0), 1)} ${Math.min(Math.max(adjustedChroma + adjustments.ForegroundDark.c, 0), 1)} ${hue})`,
+    BackgroundLight: `oklch(${Math.min(Math.max(adjustedLightness + adjustments.BackgroundLight.l, 0), 1)} ${Math.min(Math.max(adjustedChroma + adjustments.BackgroundLight.c, 0), 1)} ${hue})`,
+    BackgroundDark: `oklch(${Math.min(Math.max(adjustedLightness + adjustments.BackgroundDark.l, 0), 1)} ${Math.min(Math.max(adjustedChroma + adjustments.BackgroundDark.c, 0), 1)} ${hue})`,
     lightness,
   };
+
+  return adjustedColors;
 }
 
 export default adjustColor;
