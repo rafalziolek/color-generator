@@ -7,28 +7,30 @@ export default function Event({ data }) {
   const { activeColor, chromaStep, lightnessStep, mode } =
     React.useContext(ColorContext);
 
-  const { lighterColor, darkerColor, lightness } = adjustColor(
-    activeColor,
-    lightnessStep,
-    chromaStep,
-  );
+  const backgroundColor = activeColor.values[5].value;
+  const backgroundColorLight = activeColor.values[1].value;
+  const foregroundColor = activeColor.values[0].value;
+  const foregroundColorLight = activeColor.values[7].value;
 
   return (
     <div
       className="relative overflow-hidden rounded-lg px-4 py-2 min-w-56 leading-0 text-[13px]"
-      style={{ backgroundColor: mode == "dark" ? activeColor : lighterColor }}
+      style={{
+        backgroundColor:
+          mode === "light" ? backgroundColorLight : backgroundColor,
+      }}
     >
       <div className="flex flex-col">
         {mode === "light" && (
           <span
             className="w-[5px] h-full bg-black absolute top-0 left-0"
-            style={{ backgroundColor: activeColor }}
+            style={{ backgroundColor: backgroundColor }}
           ></span>
         )}
         <span
           className="font-semibold leading-4"
           style={{
-            color: lightness > 0.7 ? darkerColor : lighterColor,
+            color: mode === "light" ? foregroundColorLight : foregroundColor,
           }}
         >
           {data.name}
@@ -36,7 +38,7 @@ export default function Event({ data }) {
         <span
           className="font-semibold leading-4"
           style={{
-            color: lightness > 0.7 ? darkerColor : lighterColor,
+            color: mode === "light" ? foregroundColorLight : foregroundColor,
           }}
         >
           {data.time}
@@ -44,7 +46,9 @@ export default function Event({ data }) {
         {data.service && (
           <span
             className="leading-4"
-            style={{ color: lightness > 0.7 ? darkerColor : lighterColor }}
+            style={{
+              color: mode === "light" ? foregroundColorLight : foregroundColor,
+            }}
           >
             service: {data.service}
           </span>

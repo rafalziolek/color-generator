@@ -11,8 +11,11 @@ export default function ColorsList() {
   return (
     <div className="flex flex-col gap-2">
       <ColorList title="Colors">
-        {colors.map((color, index) => (
-          <ColorItem color={color} key={index} />
+        {colors.map((colorFamily) => (
+          <ColorItem
+            key={`${colorFamily.name}-${colorFamily.values[5].name}`}
+            color={colorFamily}
+          />
         ))}
       </ColorList>
     </div>

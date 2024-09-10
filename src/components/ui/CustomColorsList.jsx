@@ -11,8 +11,11 @@ export default function CustomColorsList() {
   return (
     <div className="flex flex-col gap-2">
       <ColorList title="Custom">
-        {customColors.map((color, index) => (
-          <ColorItem custom color={color} key={index} />
+        {customColors.contrastColors.slice(1).map((colorFamily) => (
+          <ColorItem
+            key={`${colorFamily.name}-${colorFamily.values[5].name}`}
+            color={colorFamily}
+          />
         ))}
         <ColorPicker />
       </ColorList>
