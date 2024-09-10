@@ -17,7 +17,11 @@ export function ColorItem({ color, custom }) {
   const { colors, activeColor, setActiveColor, setCustomColors } =
     React.useContext(ColorContext);
   const backgroundColor =
-    custom === true ? color.backgroundColor : color.values[5].value;
+    custom === true
+      ? color.backgroundColor
+      : color.name === "Lightish purple"
+      ? color.values[3].value
+      : color.values[5].value;
 
   return (
     <div className="group relative">
