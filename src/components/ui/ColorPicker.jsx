@@ -15,18 +15,18 @@ export function ColorPicker() {
       backgroundColor: `oklch(${colorOklch.l} ${colorOklch.c} ${
         colorOklch.h ?? 0
       })`,
-      backgroundColorLight: `oklch(${colorOklch.l + 0.3} ${Math.max(
-        0,
-        colorOklch.c - 0.1
-      )} ${colorOklch.h ?? 0})`,
+      backgroundColorLight: `oklch(${Math.min(
+        0.96,
+        colorOklch.l + 0.15
+      )} ${Math.max(0, colorOklch.c - 0.1)} ${colorOklch.h ?? 0})`,
       foregroundColor: `oklch(${
         colorOklch.l > 0.8
-          ? `${colorOklch.l - 0.4} ${Math.max(0, colorOklch.c + 0.1)}`
+          ? `${colorOklch.l - 0.35} ${Math.max(0, colorOklch.c + 0.1)}`
           : `${colorOklch.l + 0.7} ${Math.min(1, colorOklch.c - 0.1)}`
       } ${colorOklch.h ?? 0})`,
-      foregroundColorLight: `oklch(${colorOklch.l - 0.5} ${Math.max(
+      foregroundColorLight: `oklch(${colorOklch.l - 0.35} ${Math.max(
         0,
-        colorOklch.c + 0.05
+        colorOklch.c + 0.1
       )} ${colorOklch.h ?? 0})`,
     };
     setCustomColors((prev) => {
