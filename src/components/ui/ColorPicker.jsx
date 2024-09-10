@@ -12,16 +12,22 @@ export function ColorPicker() {
     const oklch = converter("oklch");
     const colorOklch = oklch(color);
     const colorFamily = {
-      backgroundColor: `oklch(${colorOklch.l} ${colorOklch.c} ${colorOklch.h})`,
-      backgroundColorLight: `oklch(${colorOklch.l + 0.3} ${
-        colorOklch.c - 0.1
-      } ${colorOklch.h})`,
-      foregroundColor: `oklch(${colorOklch.l + 0.7} ${colorOklch.c - 0.15} ${
-        colorOklch.h
+      backgroundColor: `oklch(${colorOklch.l} ${colorOklch.c} ${
+        colorOklch.h ?? 0
       })`,
-      foregroundColorLight: `oklch(${colorOklch.l - 0.5} ${
-        colorOklch.c + 0.05
-      } ${colorOklch.h})`,
+      backgroundColorLight: `oklch(${Math.min(
+        0.96,
+        colorOklch.l + 0.15
+      )} ${Math.max(0, colorOklch.c - 0.1)} ${colorOklch.h ?? 0})`,
+      foregroundColor: `oklch(${
+        colorOklch.l > 0.8
+          ? `${colorOklch.l - 0.35} ${Math.max(0, colorOklch.c + 0.1)}`
+          : `${colorOklch.l + 0.7} ${Math.min(1, colorOklch.c - 0.1)}`
+      } ${colorOklch.h ?? 0})`,
+      foregroundColorLight: `oklch(${colorOklch.l - 0.35} ${Math.max(
+        0,
+        colorOklch.c + 0.1
+      )} ${colorOklch.h ?? 0})`,
     };
     setCustomColors((prev) => {
       const updatedColors = [
