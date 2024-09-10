@@ -16,14 +16,15 @@ export default function ColorList({ children, title, className }) {
 export function ColorItem({ color, custom }) {
   const { activeColor, setActiveColor, setCustomColors } =
     React.useContext(ColorContext);
-  const backgroundColor = color.values[5].value;
+  const backgroundColor =
+    custom === true ? color.backgroundColor : color.values[5].value;
 
   return (
     <div className="group relative">
       <button
         className={`  w-8 h-8 rounded-md `}
         style={{ backgroundColor: backgroundColor }}
-        onClick={() => setActiveColor(color)}
+        onClick={() => setActiveColor({ color: color, custom: custom })}
       >
         <span className="sr-only">{backgroundColor}</span>
       </button>

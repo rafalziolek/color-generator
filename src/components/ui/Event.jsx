@@ -3,14 +3,26 @@ import React, { useEffect } from "react";
 import ColorContext from "../../context/ColorContext";
 import adjustColor from "../../utils/adjustColor";
 
-export default function Event({ data }) {
+export default function Event({ data, customColor = false }) {
   const { activeColor, chromaStep, lightnessStep, mode } =
     React.useContext(ColorContext);
 
-  const backgroundColor = activeColor.values[5].value;
-  const backgroundColorLight = activeColor.values[1].value;
-  const foregroundColor = activeColor.values[0].value;
-  const foregroundColorLight = activeColor.values[7].value;
+  const backgroundColor =
+    customColor === true
+      ? activeColor.color.backgroundColor
+      : activeColor.color.values[5].value;
+  const backgroundColorLight =
+    customColor === true
+      ? activeColor.color.backgroundColorLight
+      : activeColor.color.values[1].value;
+  const foregroundColor =
+    customColor === true
+      ? activeColor.color.foregroundColor
+      : activeColor.color.values[0].value;
+  const foregroundColorLight =
+    customColor === true
+      ? activeColor.color.foregroundColorLight
+      : activeColor.color.values[7].value;
 
   return (
     <div
