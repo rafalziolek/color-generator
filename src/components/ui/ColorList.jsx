@@ -14,7 +14,7 @@ export default function ColorList({ children, title, className }) {
 }
 
 export function ColorItem({ color, custom }) {
-  const { activeColor, setActiveColor, setCustomColors } =
+  const { colors, activeColor, setActiveColor, setCustomColors } =
     React.useContext(ColorContext);
   const backgroundColor =
     custom === true ? color.backgroundColor : color.values[5].value;
@@ -31,7 +31,10 @@ export function ColorItem({ color, custom }) {
       {custom && (
         <button
           onClick={() => {
-            setActiveColor(backgroundColor);
+            setCustomColors((prevColors) =>
+              prevColors.filter((c) => Object.values(c)[0] !== color)
+            );
+            setActiveColor({ color: colors[0], custom: false });
           }}
           className="hover:scale-110 border hidden group-hover:block border-white text-black hover:text-white bg-gray-300 hover:bg-red-500 p-1 absolute rounded-full top-[-5px] right-[-5px] "
         >
