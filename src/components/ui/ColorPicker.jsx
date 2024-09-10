@@ -17,7 +17,7 @@ export function ColorPicker() {
       })`,
       backgroundColorLight: `oklch(${Math.min(
         0.96,
-        colorOklch.l + 0.15
+        colorOklch.l + 0.6
       )} ${Math.max(0, colorOklch.c - 0.1)} ${colorOklch.h ?? 0})`,
       foregroundColor: `oklch(${
         colorOklch.l > 0.8
