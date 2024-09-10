@@ -1,38 +1,54 @@
 "use client";
 import React from "react";
 import ColorContext from "@/context/ColorContext";
-import { formatHex, oklch, rgb } from "culori";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
-
-const hexColor = "#FF5733";
-const oklchColor = oklch(rgb(formatHex(hexColor)));
-
-console.log(oklchColor); // { mode: 'oklch', l: 0.678, c: 0.153, h: 29.56 }
+import { converter } from "culori";
 
 export function ColorPicker() {
-  const { customColors, setCustomColors, setActiveColor } =
+  const { customColors, setCustomColors, activeColor, setActiveColor } =
     React.useContext(ColorContext);
   const [color, setColor] = React.useState("#ffffff");
+  const handleAddCustomColor = () => {
+    const oklch = converter("oklch");
+    const colorOklch = oklch(color);
+    const colorFamily = {
+      backgroundColor: `oklch(${colorOklch.l} ${colorOklch.c} ${colorOklch.h})`,
+      backgroundColorLight: `oklch(${colorOklch.l + 0.3} ${
+        colorOklch.c - 0.1
+      } ${colorOklch.h})`,
+      foregroundColor: `oklch(${colorOklch.l + 0.7} ${colorOklch.c - 0.15} ${
+        colorOklch.h
+      })`,
+      foregroundColorLight: `oklch(${colorOklch.l - 0.5} ${
+        colorOklch.c + 0.05
+      } ${colorOklch.h})`,
+    };
+    setCustomColors((prev) => {
+      const updatedColors = [
+        ...prev,
+        { [`CustomColor-${color}`]: colorFamily },
+      ];
+      // Set the active color to the newly added color
+      setActiveColor({ color: colorFamily, custom: true });
+      console.log(activeColor);
+      console.log(updatedColors);
+      return updatedColors;
+    });
+    setColor("#ffffff");
+  };
+
   return (
     <div className="relative flex items-center gap-2 w-fit h-fit">
       <input
-        className={`w-8 h-8 rounded-md ${color !== "#ffffff" ? "" : "border"} border-input bg-transparent text-muted-foreground`}
+        className={`w-8 h-8 rounded-md ${
+          color !== "#ffffff" ? "" : "border"
+        } border-input bg-transparent text-muted-foreground`}
         type="color"
         value={color}
         onChange={(e) => setColor(e.target.value)}
-        onBlur={(e) => {
-          const oklchColor = oklch(rgb(formatHex(color)));
-          const clampedLightness = Math.min(Math.max(oklchColor.l, 0), 1);
-          const oklchCSS = `oklch(${clampedLightness.toFixed(3)} ${oklchColor.c} ${oklchColor.h ?? 0})`;
-          if (!customColors.includes(oklchColor)) {
-            setCustomColors([...customColors, oklchCSS]);
-            setActiveColor(oklchCSS);
-          }
-          setColor("#ffffff");
-          console.log(customColors);
-        }}
-      ></input>
-      <span className="size-5 absolute pointer-events-none top-[50%] left-[50%]  translate-x-[-50%] translate-y-[-50%] rounded-full flex items-center justify-center">
+        onBlur={handleAddCustomColor} // Call the function to add custom color when focus is lost
+      />
+      <span className="size-5 absolute pointer-events-none top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] rounded-full flex items-center justify-center">
         <PlusCircledIcon className="text-black" />
       </span>
     </div>

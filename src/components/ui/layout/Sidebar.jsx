@@ -11,7 +11,7 @@ export default function Sidebar() {
       <ColorsList />
       <CustomColorsList />
       <hr className="border-gray-200 " />
-      <ColorConfigForm />
+      {/* <ColorConfigForm /> */}
     </aside>
   );
 }
