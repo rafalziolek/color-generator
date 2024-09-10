@@ -6,10 +6,13 @@ import adjustColor from "../../utils/adjustColor";
 export default function Event({ data, customColor = false }) {
   const { activeColor, chromaStep, lightnessStep, mode } =
     React.useContext(ColorContext);
+  console.log(activeColor);
 
   const backgroundColor =
     customColor === true
       ? activeColor.color.backgroundColor
+      : activeColor.color.name === "Lightish purple"
+      ? activeColor.color.values[3].value
       : activeColor.color.values[5].value;
   const backgroundColorLight =
     customColor === true
@@ -18,11 +21,13 @@ export default function Event({ data, customColor = false }) {
   const foregroundColor =
     customColor === true
       ? activeColor.color.foregroundColor
+      : activeColor.color.name === "Lightish purple"
+      ? activeColor.color.values[0].value
       : activeColor.color.values[0].value;
   const foregroundColorLight =
     customColor === true
       ? activeColor.color.foregroundColorLight
-      : activeColor.color.values[7].value;
+      : activeColor.color.values[8].value;
 
   return (
     <div
