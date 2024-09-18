@@ -8,11 +8,14 @@ import {
   customColorPalette,
   customAssignmentColors,
 } from "@/utils/LeonardoColors";
+import huetoneColors from "@/utils/huetoneColors.json";
+const huetoneColorsObject = JSON.parse(JSON.stringify(huetoneColors));
 
 export const ColorProvider = ({ children }) => {
+  console.log(huetoneColorsObject);
   const [mode, setMode] = useState("dark");
 
-  const [colors, setColors] = useState(colorPalette);
+  const [colors, setColors] = useState(huetoneColorsObject.hues);
   const [activeColor, setActiveColor] = useState({
     color: colors[0],
     custom: false,

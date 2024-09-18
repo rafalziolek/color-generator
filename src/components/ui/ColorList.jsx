@@ -16,8 +16,7 @@ export default function ColorList({ children, title, className }) {
 export function ColorItem({ color, custom }) {
   const { colors, activeColor, setActiveColor, setCustomColors } =
     React.useContext(ColorContext);
-  const backgroundColor =
-    custom === true ? color.backgroundColor : color.values[5].value;
+  const backgroundColor = custom === true ? color.backgroundColor : color[5];
 
   return (
     <div className="group relative">

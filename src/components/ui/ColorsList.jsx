@@ -13,8 +13,8 @@ export default function ColorsList() {
       <ColorList title="Colors">
         {colors.map((colorFamily) => (
           <ColorItem
-            key={`${colorFamily.name}-${colorFamily.values[5].name}`}
-            color={colorFamily}
+            key={`${colorFamily.name}-${colorFamily.colors[5]}`}
+            color={colorFamily.colors}
           />
         ))}
       </ColorList>

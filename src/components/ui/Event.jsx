@@ -10,19 +10,19 @@ export default function Event({ data, customColor = false }) {
   const backgroundColor =
     customColor === true
       ? activeColor.color.backgroundColor
-      : activeColor.color.values[5].value;
+      : activeColor.color[5];
   const backgroundColorLight =
     customColor === true
       ? activeColor.color.backgroundColorLight
-      : activeColor.color.values[1].value;
+      : activeColor.color[1];
   const foregroundColor =
     customColor === true
       ? activeColor.color.foregroundColor
-      : activeColor.color.values[0].value;
+      : activeColor.color[0];
   const foregroundColorLight =
     customColor === true
       ? activeColor.color.foregroundColorLight
-      : activeColor.color.values[7].value;
+      : activeColor.color[7];
 
   return (
     <div
